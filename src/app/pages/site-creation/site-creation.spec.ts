@@ -1,53 +1,57 @@
-import { TestBed } from '@angular/core/testing';
-import { signal, computed } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideZonelessChangeDetection } from '@angular/core';
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs';
 import { SiteCreation } from './site-creation';
-import { WpService } from '../../services/wpService'; // adjust to your actual token
+import { WpService } from '../../services/wpService';
 
-class FakeWpService {
-  private _page = signal<any | null>(null);
-  private _error = signal<any | null>(null);
-  private _loading = signal<any | null>(null);
-
-  page = computed(() => this._page());
-  error = computed(() => this._error());
-  loading = computed(() => this._loading());
+class FakeService {
+  page$ = new BehaviorSubject<any | null>(null);
+  error$ = new BehaviorSubject<string | null>(null);
+  loading$ = new BehaviorSubject<boolean>(false);
 
   loadBySlug(slug: string) {
-    // Synchronously seed the signal
-    if (slug === 'creation-sites-internet') {
-      this._page.set({
-        title: { rendered: 'Création sites internet' },
-        content: { rendered: '<p>Hello world</p>' }
-      });
+    if (slug === 'valid-slug') {
+      this.page$.next({ title: { rendered: 'Existing page' }, content: { rendered: '<p>Content</p>' } });
+      this.error$.next(null);
     } else {
-      this._error.set(true);
+      this.page$.next(null);
+      this.error$.next('Page not found');
     }
   }
 }
 
-fdescribe('SiteCreation (zoneless)', () => {
+describe('SiteCreationComponent', () => {
+  let fixture: ComponentFixture<SiteCreation>;
+  let component: SiteCreation;
+  let fakeService: FakeService;
+
   beforeEach(async () => {
+    fakeService = new FakeService();
+
     await TestBed.configureTestingModule({
       imports: [SiteCreation],
-      providers: [
-        provideZonelessChangeDetection(),
-        provideRouter([]),
-        { provide: WpService, useClass: FakeWpService }
-      ]
+      providers: [{ provide: WpService, useValue: fakeService }]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(SiteCreation);
+    component = fixture.componentInstance;
   });
 
+  it('shows page when slug is valid', () => {
+    component.slug = 'valid-slug';
+    fixture.detectChanges();
 
-  it('renders title when loadBySlug sets page()', () => {
-    const fixture = TestBed.createComponent(SiteCreation);
-    fixture.detectChanges(); // component calls wp.loadBySlug() in ngOnInit
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent)
-      .toContain('Création sites internet');
+      .toContain('Existing page');
+  });
+
+  it('shows error when slug is invalid', () => {
+    component.slug = 'wrong-slug';
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.error-message')?.textContent)
+      .toContain('Page not found');
   });
 });
-
 

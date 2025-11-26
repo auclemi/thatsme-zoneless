@@ -13,13 +13,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
   standalone: true,
 })
 export class SiteCreation {
- private readonly wp = inject(WpService);
-  private pages: any[] = ['creation-sites-internet', 'developpement-front-end-angular', 'developpement-back-end-wordpress'];
-  page = toSignal(this.wp.page$, { initialValue: null });
+  private readonly wp = inject(WpService);
+  public slug: string = 'creation-sites-internet';//['creation-sites-internet', 'developpement-front-end-angular', 'developpement-back-end-wordpress'];
+  public page = toSignal(this.wp.page$, { initialValue: null });
   loading = toSignal(this.wp.loading$, { initialValue: false });
-  error = toSignal(this.wp.error$, { initialValue: null });
+  public error = toSignal(this.wp.error$, { initialValue: null });
 
   ngOnInit() {
-    this.wp.loadBySlug(this.pages[0])
+    this.wp.loadBySlug(this.slug)
   }
 }
