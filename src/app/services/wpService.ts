@@ -76,7 +76,7 @@ export class WpService {
   private errorSubject = new BehaviorSubject<any>(null);
 
   // Expose as observables
-  page$ = this.pageSubject;
+  page$ = this.pageSubject.asObservable();
   loading$ = this.loadingSubject.asObservable();
   error$ = this.errorSubject.asObservable();
   readonly apiUrl = 'http://localhost/wp/wp-json/wp/v2/';
@@ -89,7 +89,13 @@ export class WpService {
     this.errorSubject.next(null);
 
     this.http.get<Page[]>(`${this.apiUrl}pages/?slug=${slug}`).pipe(
-      tap(page => this.pageSubject.next(page[0])),
+      tap(page => {
+        if(page.length){
+        this.pageSubject.next(page[0])
+      } else {
+        this.errorSubject.next('Page not found');
+      }
+      }),
       catchError(err => {
         this.errorSubject.next(err);
         throw err;
