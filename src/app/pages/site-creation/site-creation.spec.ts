@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of, throwError, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { SiteCreation } from './site-creation';
 import { WpService } from '../../services/wpService';
+
 
 class FakeService {
   page$ = new BehaviorSubject<any | null>(null);
@@ -12,19 +13,25 @@ class FakeService {
     if (slug === 'valid-slug') {
       this.page$.next({ title: { rendered: 'Existing page' }, content: { rendered: '<p>Content</p>' } });
       this.error$.next(null);
+    
     } else {
+      this.page$.next(null);
+      this.error$.next('Page not found');
       this.page$.next(null);
       this.error$.next('Page not found');
     }
   }
 }
 
-describe('SiteCreationComponent', () => {
+
+fdescribe('SiteCreationComponent', () => {
   let fixture: ComponentFixture<SiteCreation>;
   let component: SiteCreation;
   let fakeService: FakeService;
 
   beforeEach(async () => {
+    fakeService = new FakeService();
+
     fakeService = new FakeService();
 
     await TestBed.configureTestingModule({
@@ -34,6 +41,7 @@ describe('SiteCreationComponent', () => {
 
     fixture = TestBed.createComponent(SiteCreation);
     component = fixture.componentInstance;
+
   });
 
   it('shows page when slug is valid', () => {
