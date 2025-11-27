@@ -1,11 +1,9 @@
 // wp.service.spec.ts
 import { TestBed } from '@angular/core/testing';
 import { WpService } from './wpService';
-import { Page } from './wpService';
 
 
-
-fdescribe('WpService', () => {
+describe('WpService', () => {
     let service: WpService;
 
     beforeEach(() => {
@@ -27,7 +25,7 @@ fdescribe('WpService', () => {
     it('emits an error when slug is not valid', (done) => {
         service.error$.subscribe((error) => {
             if (!error) return;
-            expect(error).toEqual('Page not found');
+            expect(error).toEqual('Page: invalid-slug not found !');
             done();
         });
         service.loadBySlug('invalid-slug');
