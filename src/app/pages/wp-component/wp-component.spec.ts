@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
-import { SiteCreation } from './site-creation';
+import { WpComponent } from './wp-component';
 import { WpService } from '../../services/wpService';
 
 
@@ -24,9 +24,9 @@ class FakeService {
 }
 
 
-fdescribe('SiteCreationComponent', () => {
-  let fixture: ComponentFixture<SiteCreation>;
-  let component: SiteCreation;
+fdescribe('WpComponent', () => {
+  let fixture: ComponentFixture<WpComponent>;
+  let component: WpComponent;
   let fakeService: FakeService;
 
   beforeEach(async () => {
@@ -35,11 +35,11 @@ fdescribe('SiteCreationComponent', () => {
     fakeService = new FakeService();
 
     await TestBed.configureTestingModule({
-      imports: [SiteCreation],
+      imports: [WpComponent],
       providers: [{ provide: WpService, useValue: fakeService }]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SiteCreation);
+    fixture = TestBed.createComponent(WpComponent);
     component = fixture.componentInstance;
 
   });
