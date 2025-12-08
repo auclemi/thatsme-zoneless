@@ -1,15 +1,34 @@
 import { Routes } from '@angular/router';
-import { Home } from './pages/home/home';
-import { Contact } from './pages/contact/contact';
-import { provideRouter, withViewTransitions } from '@angular/router';
-import { WpComponent } from './pages/wp-component/wp-component';
-
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: Home },
-  { path: 'developpement-front-end-angular', component: WpComponent },
-  { path: 'audit-accessibility', component: WpComponent },
-  { path: 'site-creation', component: WpComponent },
-  { path: 'mise-en-conformite-accessibilite-wacg', component: WpComponent },
-  { path: 'formation-action', component: WpComponent },
-];
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home').then(m => m.Home)
+  },
+  {
+    path: 'developpement-front-end-angular',
+    loadComponent: () =>
+      import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  },
+  {
+    path: 'audit-accessibility',
+    loadComponent: () =>
+      import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  },
+  {
+    path: 'site-creation',
+    loadComponent: () =>
+      import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  },
+  {
+    path: 'mise-en-conformite-accessibilite-wacg',
+    loadComponent: () =>
+      import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  },
+  {
+    path: 'formation-action',
+    loadComponent: () =>
+      import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  }
+]
