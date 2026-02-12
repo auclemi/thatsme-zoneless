@@ -30,5 +30,11 @@ export const routes: Routes = [
     path: 'formation-action',
     loadComponent: () =>
       import('./pages/wp-component/wp-component').then(m => m.WpComponent)
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/contact/contact').then(m => m.Contact)
   }
+
 ]
