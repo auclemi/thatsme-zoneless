@@ -1,0 +1,33 @@
+<form [formGroup]="contactForm" (ngSubmit)="submit()" class="form">
+
+  <!-- Messages -->
+  <div *ngIf="successMessage" class="alert success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Nom & Prénom -->
+  <div class="field">
+    <label>Nom & Prénom</label>
+    <input type="text" formControlName="name" />
+  </div>
+
+  <!-- Email -->
+  <div class="field">
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+  </div>
+
+  <!-- Message -->
+  <div class="field">
+    <label>Message</label>
+    <textarea formControlName="message"></textarea>
+  </div>
+
+  <button type="submit" [disabled]="contactForm.invalid || loading">
+    {{ loading ? 'Envoi...' : 'Envoyer' }}
+  </button>
+</form>

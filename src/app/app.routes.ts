@@ -34,7 +34,7 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadComponent: () =>
-      import('./pages/contact/contact').then(m => m.Contact)
+      import('./pages/contact/contact-form.component').then(m => m.ContactFormComponent)
   }
 
 ]
