@@ -1,3 +1,8 @@
+
+// @import "material-theme.scss";
+
+
+
 /* You can add global styles to this file, and also import other style files */
 @import "styles-colors.scss";
 
@@ -27,8 +32,9 @@
 }
 body, 
 .entry-title {
-font-family: 'Arial', sans-serif;
+  // font-family: 'Arial', sans-serif !important;
   color: #000;
+  font-size: 16px;
 }
 body a {
   color: $link-color;

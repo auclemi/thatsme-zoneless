@@ -18,6 +18,7 @@ export class ContactService {
 
   constructor(private http: HttpClient) {}
 
+  
   sendContact(payload: ContactPayload): Observable<any> {
     return this.http.post(this.apiUrl, payload);
   }
