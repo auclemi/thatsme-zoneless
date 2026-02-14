@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface Page {
   title: { rendered: string };
@@ -21,14 +22,14 @@ export class WpService {
   loading$ = this.loadingSubject.asObservable();
   error$ = this.errorSubject.asObservable();
 
-  readonly apiUrl = 'mock/wp-allpages.json';
+  // readonly apiUrl = 'mock/wp-allpages.json';
+  readonly apiUrl = `${environment.apiUrl}/content/wp-pages`;
 
   constructor(private http: HttpClient) { }
 
   loadBySlug(slug: string): void {
     this.loadingSubject.next(true);
     this.errorSubject.next(null);
-    
     if (this.allPages.length) {
       this._setPage(slug);
     } else {
@@ -38,7 +39,7 @@ export class WpService {
           this._setPage(slug);
         }),
         catchError(err => {
-          this.errorSubject.next(`Pages datasource not found !`);
+          this.errorSubject.next(`Pages datasource not responding ! 'npm run start:dev' to start the server.`);
           throw err;
         }),
         finalize(() => this.loadingSubject.next(false))

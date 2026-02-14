@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from './contact.service';
 import { CommonModule } from '@angular/common';
-
+import { MaterialFullModule } from '../../shared/material/material-module';
+import { ErrorComponent } from "../../components/error/error.component";
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
-  imports: [CommonModule, ReactiveFormsModule],
-  styleUrl: './contact-form.component.scss'
+  imports: [CommonModule, ReactiveFormsModule, MaterialFullModule, ErrorComponent],
+  styleUrl: './contact-form.component.scss',
+  standalone: true,
 })
 export class ContactFormComponent {
 
@@ -25,6 +27,7 @@ export class ContactFormComponent {
       email: ['', [Validators.required, Validators.email]],
       message: ['', [Validators.required, Validators.minLength(5)]],
     });
+    // this.successMessage = 'Skata';
   }
 
   submit() {
@@ -42,6 +45,7 @@ export class ContactFormComponent {
       },
       error: () => {
         this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+        this.contactForm.reset();
         this.loading = false;
       }
     });

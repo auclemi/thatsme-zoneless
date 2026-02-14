@@ -24,14 +24,12 @@ export class WpComponent {
     private router: Router,
     private wp: WpService
   ) {
-    console.log('constructor')
     this.slug = this.getSlug(this.router.url);
     this.page = toSignal(this.wp.page$, { initialValue: null });
     this.loading = toSignal(this.wp.loading$, { initialValue: false });
     this.error = toSignal(this.wp.error$, { initialValue: null });
   }
   ngOnInit() {
-    console.log('init')
     this.wp.loadBySlug(this.slug)
   }
 
