@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminLogsComponent } from './admin-logs/admin-logs';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
@@ -35,6 +36,12 @@ export const routes: Routes = [
     path: 'contact',
     loadComponent: () =>
       import('./pages/contact/contact-form.component').then(m => m.ContactFormComponent)
-  }
-
+  },
+  { path: 'admin-logs', component: AdminLogsComponent },
+  
+{
+    path: 'admin-logs',
+    loadComponent: () =>
+      import('./admin-logs/admin-logs').then(m => m.AdminLogsComponent)
+  },
 ]
