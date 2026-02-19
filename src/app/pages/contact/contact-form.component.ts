@@ -36,21 +36,6 @@ ngOnInit() {
   submit() {
     if (this.contactForm.invalid || this.contactState() !== 'INITIAL') return;
     this.contactService.sendContact(this.contactForm.value)
-    // this.loading = true;
-    // this.successMessage = null;
-    // this.errorMessage = null;
-
-    // this.contactService.sendContact(this.contactForm.value).subscribe({
-    //   next: () => {
-    //     this.successMessage = 'Votre message a bien été envoyé.';
-    //     this.contactForm.reset();
-    //     this.loading = false;
-    //   },
-    //   error: () => {
-    //     this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
-    //     // this.contactForm.reset();
-    //     this.loading = false;
-    //   }
-    // });
+    
   }
 }
