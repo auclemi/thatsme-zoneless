@@ -1,6 +1,6 @@
 <h1>Admin Logs</h1>
 
-<form [formGroup]="adminForm">
+<form [formGroup]="adminForm" class="d-flex flex-column w-50">
     <mat-form-field appearance="outline">
         <mat-label>Utilisateur</mat-label>
         <input matInput formControlName="user" autocomplete="off">
@@ -10,10 +10,7 @@
         <mat-label>Mot de passe</mat-label>
         <input matInput formControlName="pass" type="password" autocomplete="new-password">
     </mat-form-field>
-
-
-
-<br>
+</form>
 
 <button mat-flat-button color="primary" (click)="getLogs()">Voir les logs</button>
 <button class="ms-3" matButton="elevated" (click)="deleteLogs()">Supprimer les logs</button>
