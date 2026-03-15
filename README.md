@@ -57,3 +57,15 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## deployment for prod
+/production/angular -> this is angular dist
+/production/data
+/production/dist -> this is nest dist
+/production/.env
+/production/.nest-cli.json
+/production/.package.json
+/production/package-lock.json
+/production/README.md
+/production/tsconfig.build.json
+/production/tsconfig.json
